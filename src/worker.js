@@ -1,9 +1,7 @@
 import {
   DEFAULT_MODEL,
   MODELS,
-  PROMPT_1,
-  PROMPT_2,
-  PROMPT_3
+  PROMPT_1
 } from "./config.js";
 
 function resp(body, contentType = "text/plain; charset=utf-8", status = 200, extraHeaders = {}) {
@@ -18,15 +16,6 @@ function resp(body, contentType = "text/plain; charset=utf-8", status = 200, ext
 
 function isAllowedModel(modelId) {
   return MODELS.some((m) => m.id === modelId);
-}
-
-function builtinPromptForModel(modelId) {
-  const meta = MODELS.find((m) => m.id === modelId);
-  const persona = meta?.persona ?? 1;
-
-  if (persona === 3) return PROMPT_3;
-  if (persona === 2) return PROMPT_2;
-  return PROMPT_1;
 }
 
 function clientConfigJs() {
@@ -63,7 +52,7 @@ async function handleChat(request, env) {
   if (useBuiltinPersona) {
     upstreamMessages.push({
       role: "system",
-      content: builtinPromptForModel(model)
+      content: PROMPT_1
     });
   } else if (customSystemPrompt) {
     upstreamMessages.push({
@@ -82,25 +71,23 @@ async function handleChat(request, env) {
     });
   }
 
-  if (!env.NVIDIA_API_KEY) {
+  if (!env.ZHIPU_API_KEY) {
     return resp(
-      "Missing NVIDIA_API_KEY (please set it with wrangler secret).",
+      "Missing ZHIPU_API_KEY (please set it in environment variables).",
       "text/plain; charset=utf-8",
       500
     );
   }
 
-  // ========== 已改为 Groq API ==========
-  const upstream = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+  const upstream = await fetch("https://open.bigmodel.cn/api/paas/v4/chat/completions", {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${env.NVIDIA_API_KEY}`,
+      "Authorization": `Bearer ${env.ZHIPU_API_KEY}`,
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
       model,
       stream: true,
-      stream_options: { include_usage: true },
       messages: upstreamMessages
     })
   });
