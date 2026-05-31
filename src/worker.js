@@ -90,7 +90,8 @@ async function handleChat(request, env) {
     );
   }
 
-  const upstream = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
+  // ========== 已改为 Groq API ==========
+  const upstream = await fetch("https://api.groq.com/openai/v1/chat/completions", {
     method: "POST",
     headers: {
       "Authorization": `Bearer ${env.NVIDIA_API_KEY}`,
