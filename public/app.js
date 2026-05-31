@@ -25,9 +25,7 @@
   const donateClose = document.getElementById("donateClose");
 
   const MODELS = (window.APP_MODELS || [
-      { id: "llama-3.3-70b-versatile", label: "超强70B" },
-    { id: "llama-3.1-8b-instant", label: "极速8B" },
-    { id: "mixtral-8x7b-32768", label: "混合专家" },
+    { id: "glm-4-plus", label: "GLM-4 Plus" },
   ]);
 
   const session = [];
