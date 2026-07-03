@@ -7,11 +7,11 @@
 export const CHAT_PASSWORD = "123456";
 
 // 默认模型
-export const DEFAULT_MODEL = "glm-4-plus";
+export const DEFAULT_MODEL = "z-ai/glm-5.2";
 
 // 模型列表——只有智谱 GLM-4 Plus
 export const MODELS = [
-  { id: "glm-4-plus", label: "GLM-4 Plus", persona: 1 },
+  { id: "z-ai/glm-5.2", label: "GLM-4 Plus", persona: 1 },
 ];
 
 // 内置人物模板——Pyrite 中文版（专为 GLM-4 Plus 优化）
