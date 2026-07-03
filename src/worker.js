@@ -71,24 +71,31 @@ async function handleChat(request, env) {
     });
   }
 
-  if (!env.ZHIPU_API_KEY) {
+  // ========== ① 环境变量检查：改用 NVIDIA_API_KEY ==========
+  if (!env.NVIDIA_API_KEY) {
     return resp(
-      "Missing ZHIPU_API_KEY (please set it in environment variables).",
+      "Missing NVIDIA_API_KEY (please set it in environment variables).",
       "text/plain; charset=utf-8",
       500
     );
   }
 
-  const upstream = await fetch("https://open.bigmodel.cn/api/paas/v4/chat/completions", {
+  // ========== ② API 地址改为 NVIDIA ==========
+  // ========== ③ 请求头、请求体也对应修改 ==========
+  const upstream = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${env.ZHIPU_API_KEY}`,
+      "Authorization": `Bearer ${env.NVIDIA_API_KEY}`,
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
       model,
       stream: true,
-      messages: upstreamMessages
+      messages: upstreamMessages,
+      temperature: 1,
+      top_p: 1,
+      max_tokens: 16384
+      // 注意：NVIDIA 的 GLM-5.2 不支持 seed 参数，请不要加
     })
   });
 
