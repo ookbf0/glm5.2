@@ -4,13 +4,10 @@
 // =============================
 
 // 进页面要输入的聊天密码（前端会弹窗；Worker 也会校验）
-export const CHAT_PASSWORD = "123456";
-
-// 默认模型
-export const DEFAULT_MODEL = "kimi-k3";
+export const DEFAULT_MODEL = "moonshotai/kimi-k3";
 
 export const MODELS = [
-  { id: "kimi-k3", label: "Kimi-K3", persona: 1 },
+  { id: "moonshotai/kimi-k3", label: "Kimi-K3", persona: 1 },
 ];
 
 // 内置人物模板——Pyrite 中文版（专为 GLM-4 Plus 优化）
