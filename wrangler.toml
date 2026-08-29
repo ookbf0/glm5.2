@@ -1,5 +1,5 @@
-name = "unlimited-ai"
-main = "src/index.js"
+name = "glm5"
+main = "src/worker.js"             # ← 改成这个
 compatibility_date = "2026-03-11"
 
 [assets]
