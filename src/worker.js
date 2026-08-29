@@ -93,7 +93,7 @@ async function handleChat(request, env) {
       stream: true,
       messages: upstreamMessages,
       temperature: 1,
-      top_p: 1,
+      top_p: 0.95,
       max_tokens: 16384
       // 注意：NVIDIA 的 GLM-5.2 不支持 seed 参数，请不要加
     })
